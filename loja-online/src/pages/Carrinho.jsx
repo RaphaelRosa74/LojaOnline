@@ -41,7 +41,7 @@ function Carrinho() {
               />
               <div className="cart-item-details">
                 <h3 className="cart-item-title">{item.nome}</h3>
-                <p className="cart-item-price">R$ {item.preco.toFixed(2)}</p>
+                <p className="cart-item-price">{item.preco.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</p>
                 <div className="cart-item-actions">
                   <button 
                     onClick={() => removerDoCarrinho(item.id)}
@@ -57,7 +57,7 @@ function Carrinho() {
                     +
                   </button>
                   <span className="cart-item-total">
-                    R$ {(item.quantidade * item.preco).toFixed(2)}
+                    {(item.quantidade * item.preco).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}
                   </span>
                 </div>
               </div>
@@ -74,7 +74,7 @@ function Carrinho() {
             </div>
             <div className="summary-total">
               <span>Total:</span>
-              <span>R$ {valorTotal.toFixed(2)}</span>
+              <span>{valorTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</span>
             </div>
             <div className="summary-buttons">
               <button 

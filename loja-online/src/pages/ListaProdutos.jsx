@@ -50,7 +50,7 @@ function ListaProdutos() {
               <h3 className="product-title">{produto.nome}</h3>
               <p className="product-description">{produto.descricao}</p>
               <p className="product-price">
-                R$ {produto.preco.toFixed(2)}
+                {produto.preco.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}
               </p>
             </div>
               <div className="product-footer">
