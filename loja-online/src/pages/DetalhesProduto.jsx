@@ -6,41 +6,23 @@ import "../styles/pages/DetalhesProduto.css";
 import "../styles/utils/_animations.css";
 import "../styles/utils/_utilities.css";
 
-const getProducts = (id) => {
-  const response = axios.get(`http://localhost:3001/produtos/${id}`)
-  return response
-}
-
 function DetalhesProduto() {
   const { id } = useParams();
   const [produto, setProduto] = useState(null);
   const [carregando, setCarregando] = useState(true);
   const { adicionarAoCarrinho } = useCarrinho();
 
-  const getApi = async() => {
-    setCarregando(true)
-    try {
-      const data = await getProducts(id)
-      setProduto(data.data)
-    } catch (error) {
-      console.error("Erro ao buscar produto:", error);
-    } finally {
-      setCarregando(false);
-    }
-  }
-
   useEffect(() => {
-    getApi()
-    // axios
-    //   .get(`http://localhost:3001/produtos/${id}`)
-    //   .then((response) => {
-    //     setProduto(response.data);
-    //     setCarregando(false);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Erro ao buscar produto:", error);
-    //     setCarregando(false);
-    //   });
+     axios
+       .get(`http://localhost:3001/produtos/${id}`)
+       .then((response) => {
+         setProduto(response.data);
+         setCarregando(false);
+       })
+       .catch((error) => {
+         console.error("Erro ao buscar produto:", error);
+         setCarregando(false);
+       });
   }, [id]);
 
   if (carregando) {
