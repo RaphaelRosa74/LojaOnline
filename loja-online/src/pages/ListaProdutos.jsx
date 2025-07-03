@@ -6,6 +6,7 @@ import '../styles/pages/ListaProdutos.css';
 import '../styles/utils/_animations.css';
 import '../styles/utils/_utilities.css';
 
+
 function ListaProdutos() {
   const [produtos, setProdutos] = useState([]);
   const [carregando, setCarregando] = useState(true);
@@ -22,6 +23,7 @@ function ListaProdutos() {
         setCarregando(false);
       });
   }, []);
+
 
   if (carregando) {
     return (
@@ -42,7 +44,7 @@ function ListaProdutos() {
             className="product-card"
           >
             <img 
-              src={produto.imagem} 
+              src={produto.imagem}
               className="product-image" 
               alt={produto.nome}
             />

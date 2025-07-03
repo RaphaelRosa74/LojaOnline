@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCarrinho } from '../context/CarrinhoContext';
 import '../styles/pages/Carrinho.css';
 import '../styles/utils/_animations.css';
@@ -15,7 +15,21 @@ function Carrinho() {
     limparCarrinho 
   } = useCarrinho();
 
-  if (totalItens === 0) {
+  const [compraFinalizada, setCompraFinalizada] = useState(false);
+  const navigate = useNavigate();
+
+  // Função para simular finalização da compra
+  const finalizarCompra = () => {
+    setCompraFinalizada(true);
+    limparCarrinho();
+
+    // Redireciona após 3 segundos
+    setTimeout(() => {
+      navigate('/');
+    }, 3000);
+  };
+
+  if (totalItens === 0 && !compraFinalizada) {
     return (
       <div className="empty-cart">
         <div className="empty-cart-icon pulse">🛒</div>
@@ -29,6 +43,16 @@ function Carrinho() {
 
   return (
     <div className="cart-container fade-in">
+      {compraFinalizada && (
+        <div className="modal">
+          <div className="modal-content scale-in">
+            <h2>✅ Compra Finalizada!</h2>
+            <p>Obrigado pela sua compra.</p>
+            <p>Você será redirecionado para a loja em instantes...</p>
+          </div>
+        </div>
+      )}
+
       <div className="cart-content">
         <div className="cart-items">
           <h2>Seu Carrinho</h2>
@@ -83,7 +107,10 @@ function Carrinho() {
               >
                 Limpar Carrinho
               </button>
-              <button className="product-btn-add">
+              <button 
+                className="product-btn-add"
+                onClick={finalizarCompra}
+              >
                 Finalizar Compra
               </button>
               <Link to="/" className="product-btn-details">
